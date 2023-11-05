@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Everything</string>
+    <string name="favorites">Favorites</string>
+    <string name="home">Home</string>
+    <string name="wrong_url">The url is not complete</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="unexpected_error">Something is wrong</string>
+    <string name="is_already_favorite">This news is already favorite</string>
+</resources>
