@@ -45,30 +45,36 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
     val favoriteError: SharedFlow<Unit> = _favoriteError.asSharedFlow()
 
     var isLoading = false
+    var isLastPage = false
     var lastPageNumber = 1
     var lastQ = ""
 
-    fun search(q: String, pageNumber: Int = 1, isNewSearch: Boolean = true) {
+    fun search(q: String, pageNumber: Int = 1, isNewSearch: Boolean = true, pageSize: Int = 100) {
         isLoading = true
         viewModelScope.launch {
             lastQ = q
-            when (val resp = repository.search(q, pageNumber)) {
+            when (val resp = repository.search(q, pageNumber, pageSize)) {
                 is ResponseData.SuccessResponse<*> -> {
                     if (resp.response is SearchResponse) {
                         if (isNewSearch) {
-                            _searchResult.value = resp.response.articles.mapNotNull { it.toNewsClient() }
+                            _searchResult.value =
+                                resp.response.articles.mapNotNull { it.toNewsClient() }
                         } else {
                             _searchResult.update {
-                                it + resp.response.articles.mapNotNull { it.toNewsClient()}
+                                it + resp.response.articles.mapNotNull { it.toNewsClient() }
                             }
                         }
                         lastPageNumber = pageNumber
+
+                        val totalResults = resp.response.totalResults!!
+                        isLastPage = totalResults/pageSize >= lastPageNumber
                     } else {
                         error("the return type of the search() is wrong")
                     }
                 }
 
                 is ResponseData.FailedResponse -> {
+                    Log.e("DDDDDDDDDD", "$resp")
                     _searchError.emit(resp)
                 }
             }

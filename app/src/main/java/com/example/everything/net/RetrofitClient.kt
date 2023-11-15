@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
     private const val BASE_URL = "https://newsapi.org/v2/"
-    const val USER_KEY = "f8e98ef4bb614703907f787c84331a8c" // "db205c08b8f245dbb8174a61de20970d"
+    const val USER_KEY = "db205c08b8f245dbb8174a61de20970d" // "f8e98ef4bb614703907f787c84331a8c"
 
     private var retrofit: EverythingApi? = null
 

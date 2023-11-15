@@ -34,7 +34,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 val visibleItemCount: Int = linearLayoutManager.childCount
                 val totalItemCount: Int = linearLayoutManager.itemCount
                 val pastVisibleItems: Int = linearLayoutManager.findFirstVisibleItemPosition()
-                if (pastVisibleItems + visibleItemCount >= totalItemCount) {
+                if (pastVisibleItems + visibleItemCount >= totalItemCount && viewModel.isLastPage) {
                     viewModel.search(viewModel.lastQ, viewModel.lastPageNumber + 1, false)
                 }
             }
@@ -56,6 +56,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     it.error
                     showToast(R.string.unexpected_error)
                 }
+                else -> {}
             }
         }
 

@@ -12,6 +12,7 @@ interface EverythingApi {
     suspend fun search(
         @Query("q") query: String,
         @Query("page") pageNumber: Int,
+        @Query("pageSize") pageSize: Int,
         @Query("apiKey") apiKey: String = USER_KEY
     ): SearchResponse?
 }
