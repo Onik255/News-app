@@ -3,6 +3,7 @@ package com.example.everything.net
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import com.example.everything.data.ResponseData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -16,6 +17,7 @@ class RepositoryImpl(private val context: Context, private val api: EverythingAp
     override suspend fun search(query: String, pageNumber: Int): ResponseData =
         performApiCall {
             api.search(query, pageNumber)
+            Log.d("test","test")
         }
 
     private suspend fun <K> performApiCall(
